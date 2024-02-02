@@ -22,7 +22,7 @@ getHTML(@Res() res: Response) {
 }
 
 @Get('/page/:param')
-getPage(@Param('param') param: number) {
+getPage(@Param('param') param: string) {
   return 'page:' + param;
   }
 }
