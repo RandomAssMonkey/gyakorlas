@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Param, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import type {Response} from 'express';
 
@@ -18,8 +18,13 @@ export class PageController {
 
 @Get('/html')
 getHTML(@Res() res: Response) {
-  res.sendFile('/index.html',  {root: __dirname + '/public'});
+  res.sendFile('index.html',  {root: 'public'});
 }
+
+@Get('/page/:param')
+getPage(@Param('param') param: number) {
+  return 'page:' + param;
+  }
 }
 
 @Controller()
@@ -31,6 +36,3 @@ export class AdminController {
     return 'jelszó: 1234';
   }
 }
-// http://localhost:3000/api/hello
-// http://localhost:3000/page/html  
-
