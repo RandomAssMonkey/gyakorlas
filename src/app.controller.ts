@@ -26,13 +26,3 @@ getPage(@Param('param') param: string) {
   return 'page:' + param;
   }
 }
-
-@Controller()
-export class AdminController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get('/titkos')
-  getSecret(): string {
-    return 'jelszó: 1234';
-  }
-}
