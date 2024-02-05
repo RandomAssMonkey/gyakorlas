@@ -1,28 +1,14 @@
-import { Controller, Get, Param, Res } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import type {Response} from 'express';
+import type { Response } from 'express';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/hello')
-  getHello(): string {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getHello(@Res() res: Response): string {
     return this.appService.getHello();
-  }
-}
-
-@Controller()
-export class PageController {
-  constructor(private readonly appService: AppService) {}
-
-@Get('/html')
-getHTML(@Res() res: Response) {
-  res.sendFile('index.html',  {root: 'public'});
-}
-
-@Get('/page/:param')
-getPage(@Param('param') param: string) {
-  return 'page:' + param;
   }
 }
