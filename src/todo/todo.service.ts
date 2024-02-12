@@ -1,5 +1,7 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { TodoModel } from './todo.model';
+
+export type CreateToDoInput = Omit<TodoModel, 'id'>;
 
 @Injectable()
 export class TodoService {
@@ -38,5 +40,19 @@ export class TodoService {
     } else {
       return this.todos[id].text;
     }
+  }
+  CreateIdForTodo() {
+    return this.todos.length + 1;
+  }
+  CreateTodo(text: CreateToDoInput) {
+    const id = this.CreateIdForTodo();
+    console.log(text);
+    let newTodo: TodoModel;
+    newTodo = {
+      id: id,
+      ...text
+    };
+    this.todos.push(newTodo);
+    return id;
   }
 }

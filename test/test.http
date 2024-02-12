@@ -4,4 +4,29 @@ GET http://localhost:3000/todo/todos?limit=3&offset=0
 
 GET http://localhost:3000/todo/todos/32
 
+###
 
+POST http://localhost:3000/todo/create
+Content-Type: application/json
+
+{
+  "text": "test"
+}
+
+###
+
+GET http://localhost:3000/fibonacci
+
+###
+
+GET http://localhost:3000/fibonacci/100
+
+###
+
+POST http://localhost:3000/send-message
+Content-Type: application/json
+
+{
+  "sender": "czalbi",
+  "message": "test"
+}
