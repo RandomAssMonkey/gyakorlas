@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises';
-import { messageBody } from "./messageBody";
+import { messageBody } from './messageBody';
 
 @Injectable()
 export class AppService {
@@ -10,7 +10,10 @@ export class AppService {
 
   async sendMessage(message: messageBody) {
     const id: number = Math.random();
-    await fs.writeFile(`messages/${message.sender}_${id}.txt`, message.message);
+    await fs.writeFile(
+      `messages/${id}`,
+      message.sender + '\n' + message.message,
+    );
     return message.message;
   }
 }
