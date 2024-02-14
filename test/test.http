@@ -1,4 +1,4 @@
-GET http://localhost:3000/todo/todos?limit=3&offset=0
+GET http://localhost:3000/todo/todos?limit=3&offset=1
 
 ###
 

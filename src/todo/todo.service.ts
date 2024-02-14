@@ -55,4 +55,8 @@ export class TodoService {
     this.todos.push(newTodo);
     return id;
   }
+
+  listTodos(){
+   return this.todos;
+  }
 }

@@ -35,6 +35,12 @@ export class TodoController {
     const id = this.TodoService.CreateTodo(requestBody);
     console.log(id);
     //return res.redirect('http://localhost:3000/todo/todos/' + id.toString());
-   return 'fasz kivan!!!'
+   return 'working'
+  }
+
+  @Get('/todos-html')
+  listTodos(@Res() res: Response){
+    res.sendFile('todos.html', {root: 'public'})
+    return this.TodoService.listTodos();
   }
 }
