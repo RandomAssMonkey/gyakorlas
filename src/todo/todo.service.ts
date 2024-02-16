@@ -1,5 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { TodoModel } from './todo.model';
+import { QueryTodoInputDto } from "./queryTodoInput.dto";
 
 export type CreateToDoInput = Omit<TodoModel, 'id'>;
 
@@ -20,7 +25,7 @@ export class TodoService {
     },
   ];
 
-  getTodos(limit: number, offset: number) {
+  getTodos(query: QueryTodoInputDto) {
     //console.log(this.todos);
     /*if(limit + offset < this.todos.length){
       for (let i = offset; i < offset + limit; i++) {
@@ -31,7 +36,7 @@ export class TodoService {
         console.log(this.todos[i].text);
       }
     }*/
-    return this.todos.slice(offset, limit + offset);
+    return this.todos.slice(query.offset, (query.offset + query.limit));
   }
 
   getTodoById(id: number) {
@@ -50,13 +55,36 @@ export class TodoService {
     let newTodo: TodoModel;
     newTodo = {
       id: id,
-      ...text
+      ...text,
     };
     this.todos.push(newTodo);
     return id;
   }
 
-  listTodos(){
-   return this.todos;
+  listTodos() {
+    return this.todos;
+  }
+
+  updateTodo(id: number, text: CreateToDoInput) {
+    for (const todo of this.todos) {
+      if (todo.id === id) {
+        todo.text = text.text;
+        return this.todos[id];
+      }
+    }
+    return this.CreateTodo(text);
+  }
+
+  deleteTodo(id: number) {
+    const index: number = this.todos.findIndex((todo) => todo.id === id);
+    if (!(index === -1)) {
+      if (this.todos.splice(index, 1)) {
+        return 'Sikeres Törlés';
+      } else {
+        throw new BadRequestException('Siketelen törlés');
+      }
+    } else {
+      throw new BadRequestException('Nincs ilyen Todo!');
+    }
   }
 }
