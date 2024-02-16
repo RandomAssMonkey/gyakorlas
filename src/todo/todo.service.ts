@@ -36,7 +36,8 @@ export class TodoService {
         console.log(this.todos[i].text);
       }
     }*/
-    return this.todos.slice(query.offset, (query.offset + query.limit));
+    const {limit = Infinity, offset = 0} = query
+    return this.todos.slice(offset, (offset + limit));
   }
 
   getTodoById(id: number) {
